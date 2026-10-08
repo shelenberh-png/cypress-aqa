@@ -21,3 +21,25 @@ Cypress.Commands.add('createExpenseApi', ({ carId, reportedAt, mileage, liters, 
     failOnStatusCode: false,
   });
 });
+
+Cypress.Commands.add('login', (email, password) => {
+  cy.visit('/');
+  cy.contains('button', 'Sign In').click();
+  cy.get('#signinEmail').should('be.visible').type(email);
+  cy.get('#signinPassword').type(password, { sensitive: true });
+  cy.contains('button', 'Login').click();
+  cy.location('pathname').should('match', /\/garage$/);
+});
+
+Cypress.Commands.overwrite('type', (originalFn, element, text, options = {}) => {
+  if (options.sensitive) {
+    options.log = false;
+    Cypress.log({
+      $el: element,
+      name: 'type',
+      message: '*'.repeat(String(text).length),
+    });
+  }
+
+  return originalFn(element, text, options);
+});
