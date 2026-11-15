@@ -20,7 +20,8 @@
   "cy:open:qauto2": "cypress open --config-file cypress.qauto2.config.js",
   "cy:run:qauto1": "cypress run --config-file cypress.config.js",
   "cy:run:qauto2": "cypress run --config-file cypress.qauto2.config.js",
-  "cy:run:all": "npm run cy:run:qauto1 && npm run cy:run:qauto2"
+  "cy:run:all": "npm run cy:run:qauto1 && npm run cy:run:qauto2",
+  "cypress:firefox": "cypress run --browser firefox"
   },
   "dependencies": {
     "ansi-escapes": "^7.3.0",
