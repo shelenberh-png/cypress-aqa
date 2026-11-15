@@ -67,12 +67,16 @@ class ExpensesPage {
     this.selectedCar.should('contain', carName);
   }
 
-  addExpense({ carName, mileage, liters, totalCost }) {
+  addExpense({ carId, mileage, liters, totalCost }) {
     this.clickAddExpense();
     this.modal.should('be.visible');
 
-    if (carName) {
-      this.vehicleDropdown.select(carName);
+    if (carId) {
+      this.vehicleDropdown.find('option').then(($options) => {
+        const matchingOptions = [...$options].filter((option) => option.value.endsWith(`: ${carId}`));
+        expect(matchingOptions, `vehicle option for car ${carId}`).to.have.length(1);
+        this.vehicleDropdown.select(matchingOptions[0].value);
+      });
     }
 
     this.mileageInput.clear().type(mileage);

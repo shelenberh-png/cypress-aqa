@@ -16,11 +16,12 @@ describe('Garage and Fuel Expenses Flow (POM)', () => {
   });
 
   it('should add a car and then add fuel expenses to it', () => {
-    garagePage.addRandomCar('15000').then((carName) => {
+    garagePage.addRandomCar('15000').then((car) => {
+      const carName = car.name;
       expensesPage.open();
 
       expensesPage.addExpense({
-        carName,
+        carId: car.id,
         mileage: '15500',
         liters: '45',
         totalCost: '1800',
